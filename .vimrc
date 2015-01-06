@@ -4,11 +4,11 @@ filetype off
 set ffs=unix,dos
 
 if has('win32')
-set rtp+=~/vimfiles/bundle/Vundle.vim
-let path='~/vimfiles/bundle'
+set rtp+=~/vim/vimfiles/bundle/Vundle.vim
+let path='~/vim/vimfiles/bundle'
 else
-set rtp+=~/.vim/bundle/Vundle.vim
-let path='~/.vim/bundle'
+set rtp+=~/vim/.vim/bundle/Vundle.vim
+let path='~/vim/.vim/bundle'
 endif
 
 call vundle#begin(path)
