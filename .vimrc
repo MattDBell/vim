@@ -3,13 +3,8 @@ set nocompatible
 filetype off
 set ffs=unix,dos
 
-if has('win32')
-set rtp+=$VIM/vim/.vim/bundle/Vundle.vim
-let path=$VIM . '/vim/.vim/bundle'
-else
-set rtp+=~/vim/.vim/bundle/Vundle.vim
-let path='~/vim/.vim/bundle'
-endif
+execute ( 'set rtp+=' . expand('<sfile>:h:p') . '/.vim/bundle/Vundle.vim')
+execute ( 'let path=' . '''' . expand('<sfile>:h:p') . '/.vim/bundle''' )
 
 call vundle#begin(path)
 
