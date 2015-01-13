@@ -23,12 +23,22 @@ let mapleader = ","
 nnoremap <Leader>ev :vsp $MYVIMRC<cr>
 nnoremap <Leader>evv :edit $MYVIMRC<cr>
 nnoremap <Leader>sv :source $MYVIMRC<cr>
+nnoremap <Leader>r <c-v>
 
 map <Left> <nop>
 map <Right> <nop>
 map <Up> <nop>
 map <Down> <nop>
 imap <esc> <nop>
+
+function! CheckFileOpen( )
+	let l:filePath = expand("<afile>:p")
+	if ( getbufvar(l:filePath, "&mod") == 1)
+		echoh WarningMsg
+		echom "Sourcing modified file " . l:filePath
+		echoh None
+	endif
+endfunction
 
 augroup filetype_cpp
   autocmd!
@@ -38,6 +48,10 @@ augroup filetype_vim
   autocmd!
   autocmd filetype vim :set number
 augroup END  
+augroup onSource
+	autocmd!
+	autocmd sourcepre * :call CheckFileOpen()
+augroup END
 
 function! GetOtherFilePath()
   let l:filePath = expand('%')
