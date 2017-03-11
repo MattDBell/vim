@@ -4,9 +4,9 @@ filetype off
 set ffs=unix,dos
 
 execute ( 'set rtp+=' . expand('<sfile>:h:p') . '/.vim/bundle/Vundle.vim')
-execute ( 'let path=' . '''' . expand('<sfile>:h:p') . '/.vim/bundle''' )
+execute ( 'let vundlepath=' . '''' . expand('<sfile>:h:p') . '/.vim/bundle''' )
 
-call vundle#begin(path)
+call vundle#begin(vundlepath)
 
 Plugin 'gmarik/Vundle.vim'
 
@@ -43,6 +43,8 @@ endfunction
 augroup filetype_cpp
   autocmd!
   autocmd filetype cpp :set number
+	autocmd filetype cpp :set colorcolumn=110
+	autocmd filetype cpp :highlight ColorColumn ctermbg=darkgrey
 augroup END  
 augroup filetype_vim
   autocmd!
@@ -53,48 +55,7 @@ augroup onSource
 	autocmd sourcepre * :call CheckFileOpen()
 augroup END
 
-function! GetOtherFilePath()
-  let l:filePath = expand('%')
-  " echom l:filePath
-  let l:extensionSplit = split( l:filePath, '\.')
-  " echom join(extensionSplit, '---')
-  if ( len(l:extensionSplit) > 0 ) " we have an extension
-
-    let l:extension = l:extensionSplit[-1]
-    let l:desiredExtension = 'h'
-
-    if l:extension ==# 'h'
-      let l:desiredExtension = 'cpp'
-    endif
-
-    " echom l:desiredExtension
-
-    let l:oldDirectory = 'src'
-    let l:directory = 'include'
-
-    if l:extension ==# 'h'
-      let l:directory = 'src'
-      let l:oldDirectory = 'include'
-    endif
-
-    " echom l:oldDirectory
-    " echom l:directory
-    
-    let l:newPath = substitute(l:filePath, l:oldDirectory,
-	  \ l:directory, '')
-
-    " echom len(l:newPath)
-    " echom len(l:extension)
-
-    let l:newPath = l:newPath[0:len(l:newPath) - len(l:extension) - 1] .
-	  \ l:desiredExtension
-    
-    " echom l:newPath
-    return l:newPath
-  endif
-endfunction
-
-nnoremap <Leader>th :execute ':edit ' . GetOtherFilePath()<cr><cr>
-nnoremap <Leader>oh :execute ':vsp ' . GetOtherFilePath()<cr><cr>
 nnoremap <Leader>al O<esc>
 
+set exrc
+set secure
