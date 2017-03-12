@@ -9,6 +9,7 @@ execute ( 'let vundlepath=' . '''' . expand('<sfile>:h:p') . '/.vim/bundle''' )
 call vundle#begin(vundlepath)
 
 Plugin 'gmarik/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()
 
